@@ -33,7 +33,7 @@ def main() -> None:
         nargs="?",
         type=str,
         default="exercise",
-        help="tag to filter out",
+        help="tag to keep",
     )
     parser.add_argument(
         "--show-celltoolbar",
@@ -44,7 +44,7 @@ def main() -> None:
     notebook = nbformat.read(args.input, as_version=nbformat.NO_CONVERT)
     filtered_cells = []
     for cell in notebook["cells"]:
-        if "tags" in cell["metadata"] and args.tag in cell["metadata"]["tags"]:
+        if "tags" in cell["metadata"] and args.tag not in cell["metadata"]["tags"]:
             continue
         filtered_cells.append(cell)
     if not args.show_celltoolbar:
